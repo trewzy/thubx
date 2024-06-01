@@ -38,12 +38,15 @@ local function ClosestPlayerToMouse()
 end
 
 game:GetService("RunService").Heartbeat:connect(function()
+    if TPSilentAim then
     local ClosestToMouse = ClosestPlayerToMouse()
-    if ClosestToMouse then
-        for i,v in pairs(game:GetService("Workspace").KnifeHost:GetDescendants()) do
-            if v:IsA("Part") and TPSilentAim == true then
-                v.CFrame = ClosestToMouse.Head.CFrame
-            end
-        end
+       if ClosestToMouse then
+           for i,v in pairs(game:GetService("Workspace").KnifeHost:GetDescendants()) do
+              if v:IsA("Part") and TPSilentAim == true then
+                  v.CFrame = ClosestToMouse.Head.CFrame
+              end
+           end
+       else 
+          return end
     end
 end)
