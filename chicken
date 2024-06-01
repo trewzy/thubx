@@ -1,0 +1,49 @@
+local TPSilentAim = true
+
+local Mouse = game:GetService("Players").LocalPlayer:GetMouse()
+FOV_Circle = Drawing.new("Circle")
+FOV_Circle.Color = Color3.fromRGB(255,255,255)
+FOV_Circle.Thickness = 3
+FOV_Circle.NumSides = 50
+FOV_Circle.Radius = 100
+FOV_Circle.Visible = false
+FOV_Circle.Filled = false
+ 
+game:GetService("RunService").Stepped:connect(function()
+    FOV_Circle.Position = Vector2.new(Mouse.X, Mouse.Y + 37)
+end)
+
+local function ClosestPlayerToMouse()
+    local Closest = nil
+    local Distance = 9e9
+    for _, Player in pairs(game:GetService("Players"):GetPlayers()) do
+        if Player ~= game:GetService("Players").LocalPlayer then
+            local Character = workspace:FindFirstChild(Player.Name)
+            if Character then
+                local Head = Character:FindFirstChild("HumanoidRootPart")
+                if Head then
+                    local ScreenPos, OnScreen = Camera:WorldToScreenPoint(Head.Position)
+                    if OnScreen then
+                        local Magnitude = (Vector2.new(ScreenPos.X, ScreenPos.Y) - Vector2.new(Mouse.X, Mouse.Y)).Magnitude
+                        if Magnitude < Distance and Magnitude < FOV_Circle.Radius then
+                            Closest = Character
+                            Distance = Magnitude
+                        end
+                    end
+                end
+            end
+        end
+    end
+    return Closest
+end
+
+game:GetService("RunService").Heartbeat:connect(function()
+    local ClosestToMouse = ClosestPlayerToMouse()
+    if ClosestToMouse then
+        for i,v in pairs(game:GetService("Workspace").KnifeHost:GetDescendants()) do
+            if v:IsA("Part") and TPSilentAim == true then
+                v.CFrame = ClosestToMouse.Head.CFrame
+            end
+        end
+    end
+end)
