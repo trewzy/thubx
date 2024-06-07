@@ -39,7 +39,7 @@ function Library:Init(options)
 
 	--main
 	do
-		GUI["1"] = Instance.new("ScreenGui", runService:IsStudio() and players.LocalPlayer:WaitForChild("PlayerGui") or coreGui);
+		GUI["1"] = Instance.new("ScreenGui", players.LocalPlayer:WaitForChild("PlayerGui") or coreGui);
 		GUI["1"]["Name"] = [[Xhub]];
 		GUI["1"]["ZIndexBehavior"] = Enum.ZIndexBehavior.Sibling;
 		GUI["1"]["IgnoreGuiInset"] = true;
