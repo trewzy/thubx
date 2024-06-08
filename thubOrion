@@ -15,7 +15,7 @@ local OrionLib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/shl
 
 local Window = OrionLib:MakeWindow({Name = "Key System", HidePremium = false, SaveConfig = true, ConfigFolder = "OrionTest", IntroEnabled = false})
 
-local ValidKey = "lrizz"
+local ValidKey = "dawn"
 local KeyEntered = nil
 local KeyAttempts = 0
 
@@ -361,7 +361,7 @@ local AutofarmLoop = game:GetService("RunService").Heartbeat:Connect(function()
             if TargetMagnitude <= 10 then
                 StabCooldown = true
                 game:GetService("Players").LocalPlayer.PlayerScripts.localknifehandler.HitCheck:Fire(game.Workspace[game:GetService("Players").LocalPlayer.PlayerGui.ScreenGui.UI.Target.TargetText.Text])
-                wait(0.8)
+                wait(0.73)
                 StabCooldown = false
             end
         end
